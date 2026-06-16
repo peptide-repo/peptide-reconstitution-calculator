@@ -3,7 +3,7 @@
  * Plugin Name: Peptide Reconstitution Calculator
  * Plugin URI:  https://peptiderepo.com/tools/reconstitution-calculator
  * Description: Interactive reconstitution calculator with peptide-specific presets from Peptide Repo Core. Computes concentration, injection volume, syringe units, and doses per vial.
- * Version:     1.0.0
+ * Version:     1.2.0
  * Author:      peptiderepo
  * Author URI:  https://peptiderepo.com
  * License:     GPL-2.0-or-later
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* ── Constants ────────────────────────────────────────────────────────── */
 
-define( 'PRC_VERSION', '1.0.0' );
+define( 'PRC_VERSION', '1.2.0' );
 define( 'PRC_PLUGIN_FILE', __FILE__ );
 define( 'PRC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PRC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
