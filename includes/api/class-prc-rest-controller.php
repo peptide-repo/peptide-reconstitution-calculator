@@ -81,7 +81,7 @@ class PRC_Rest_Controller {
 	 * @param \WP_REST_Request $request Request object.
 	 * @return \WP_REST_Response
 	 */
-	public function get_presets( \WP_REST_Request $request ): \WP_REST_Response {
+	public function get_presets( \WP_REST_Request $request ): \WP_REST_Response { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$provider = new PRC_Preset_Provider();
 		$presets  = $provider->get_all_presets();
 
