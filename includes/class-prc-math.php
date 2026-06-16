@@ -10,6 +10,7 @@
  *
  * @see assets/js/calculator.js — Client-side mirror of this math.
  * @see api/class-prc-rest-controller.php — Server-side consumer.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -52,13 +53,13 @@ class PRC_Math {
 			? $desired_dose / 1000
 			: $desired_dose;
 
-		$concentration_mg_per_ml = self::concentration_mg_per_ml( $vial_mg, $water_ml );
+		$concentration_mg_per_ml    = self::concentration_mg_per_ml( $vial_mg, $water_ml );
 		$concentration_mcg_per_unit = self::concentration_mcg_per_unit( $vial_mg, $water_ml );
-		$injection_ml = self::injection_volume_ml( $dose_mg, $concentration_mg_per_ml );
-		$syringe_units = self::syringe_units( $injection_ml );
-		$doses_per_vial = self::doses_per_vial( $vial_mg, $dose_mg );
+		$injection_ml               = self::injection_volume_ml( $dose_mg, $concentration_mg_per_ml );
+		$syringe_units              = self::syringe_units( $injection_ml );
+		$doses_per_vial             = self::doses_per_vial( $vial_mg, $dose_mg );
 
-		return [
+		return array(
 			'concentration_mg_per_ml'    => round( $concentration_mg_per_ml, 4 ),
 			'concentration_mcg_per_unit' => round( $concentration_mcg_per_unit, 2 ),
 			'injection_volume_ml'        => round( $injection_ml, 4 ),
@@ -69,7 +70,7 @@ class PRC_Math {
 			'desired_dose_mg'            => round( $dose_mg, 4 ),
 			'desired_dose_display'       => $desired_dose,
 			'dose_unit'                  => $dose_unit,
-		];
+		);
 	}
 
 	/**

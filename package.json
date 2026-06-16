@@ -1,0 +1,9 @@
+{
+  "name": "peptide-reconstitution-calculator",
+  "version": "1.2.0",
+  "description": "Reconstitution calculator WordPress plugin — JS asset package config.",
+  "private": true,
+  "scripts": {
+    "lint": "node --check assets/js/calculator.js"
+  }
+}

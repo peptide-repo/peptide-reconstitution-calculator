@@ -7,6 +7,7 @@
  * Dependencies: None.
  *
  * @see class-pr-core-autoloader.php in Peptide Repo Core — same pattern.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -22,7 +23,7 @@ class PRC_Autoloader {
 	 * @return void
 	 */
 	public static function register(): void {
-		spl_autoload_register( [ __CLASS__, 'autoload' ] );
+		spl_autoload_register( array( __CLASS__, 'autoload' ) );
 	}
 
 	/**

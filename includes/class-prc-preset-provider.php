@@ -12,6 +12,7 @@
  * @see class-prc-default-presets.php            — Hardcoded fallback presets.
  * @see PR_Core_Peptide_Repository (PR Core)     — Peptide list source.
  * @see PR_Core_Dosing_Repository  (PR Core)     — Dosing data source.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -89,19 +90,19 @@ class PRC_Preset_Provider {
 		// could fail to autoload (e.g. fatal error in PR Core bootstrap).
 		// Fall back to empty array so the caller merges in defaults gracefully.
 		if ( ! class_exists( 'PR_Core_Peptide_Repository' ) || ! class_exists( 'PR_Core_Dosing_Repository' ) ) {
-			return [];
+			return array();
 		}
 
 		$peptide_repo = new PR_Core_Peptide_Repository();
 		$dosing_repo  = new PR_Core_Dosing_Repository();
 
-		$peptides = $peptide_repo->find_all( [ 'posts_per_page' => 100 ] );
-		$presets  = [];
+		$peptides = $peptide_repo->find_all( array( 'posts_per_page' => 100 ) );
+		$presets  = array();
 
 		foreach ( $peptides as $peptide ) {
 			$rows = $dosing_repo->find_by_peptide(
 				$peptide->id,
-				[ 'route' => 'subcutaneous' ]
+				array( 'route' => 'subcutaneous' )
 			);
 
 			if ( empty( $rows ) ) {
@@ -133,7 +134,7 @@ class PRC_Preset_Provider {
 		// Extract dose range across all rows.
 		$dose_mins = array_filter( array_map( fn( $r ) => $r->dose_min, $rows ) );
 		$dose_maxs = array_filter( array_map( fn( $r ) => $r->dose_max, $rows ) );
-		$dose_unit = $rows[0]->dose_unit ?: 'mcg';
+		$dose_unit = ! empty( $rows[0]->dose_unit ) ? $rows[0]->dose_unit : 'mcg';
 
 		// Derive typical vial sizes from dose range.
 		// Why: Most peptides are sold in standard vial sizes (2mg, 5mg, 10mg, 15mg, 30mg).
@@ -141,26 +142,26 @@ class PRC_Preset_Provider {
 
 		$display_name = '';
 		if ( method_exists( $peptide, 'to_array' ) ) {
-			$arr = $peptide->to_array();
+			$arr          = $peptide->to_array();
 			$display_name = $arr['display_name'] ?? $peptide->title ?? '';
 		} else {
 			$display_name = $peptide->title ?? '';
 		}
 
-		return [
-			'slug'                    => $peptide->slug,
-			'name'                    => $display_name ?: $peptide->title,
-			'vial_sizes_mg'           => $vial_sizes,
-			'default_vial_mg'         => $vial_sizes[0] ?? 5,
-			'recommended_water_ml'    => $this->recommend_water_ml( $vial_sizes[0] ?? 5 ),
-			'dose_range_min'          => ! empty( $dose_mins ) ? min( $dose_mins ) : null,
-			'dose_range_max'          => ! empty( $dose_maxs ) ? max( $dose_maxs ) : null,
-			'dose_unit'               => $dose_unit,
-			'typical_frequency'       => $this->most_common_frequency( $rows ),
-			'evidence_strength'       => $peptide->evidence_strength ?? 'preclinical',
-			'dosing_row_count'        => count( $rows ),
-			'source'                  => 'pr_core',
-		];
+		return array(
+			'slug'                 => $peptide->slug,
+			'name'                 => ! empty( $display_name ) ? $display_name : $peptide->title,
+			'vial_sizes_mg'        => $vial_sizes,
+			'default_vial_mg'      => $vial_sizes[0] ?? 5,
+			'recommended_water_ml' => $this->recommend_water_ml( $vial_sizes[0] ?? 5 ),
+			'dose_range_min'       => ! empty( $dose_mins ) ? min( $dose_mins ) : null,
+			'dose_range_max'       => ! empty( $dose_maxs ) ? max( $dose_maxs ) : null,
+			'dose_unit'            => $dose_unit,
+			'typical_frequency'    => $this->most_common_frequency( $rows ),
+			'evidence_strength'    => $peptide->evidence_strength ?? 'preclinical',
+			'dosing_row_count'     => count( $rows ),
+			'source'               => 'pr_core',
+		);
 	}
 
 	/**
@@ -176,10 +177,10 @@ class PRC_Preset_Provider {
 	 * @return float[] Standard vial sizes in mg.
 	 */
 	private function infer_vial_sizes( array $dose_mins, array $dose_maxs, string $dose_unit ): array {
-		$standard_sizes = [ 2, 5, 10, 15, 30 ];
+		$standard_sizes = array( 2, 5, 10, 15, 30 );
 
 		if ( empty( $dose_mins ) && empty( $dose_maxs ) ) {
-			return [ 5, 10 ];
+			return array( 5, 10 );
 		}
 
 		// Convert everything to mg for comparison.
@@ -187,12 +188,12 @@ class PRC_Preset_Provider {
 		$all_doses   = array_merge( $dose_mins, $dose_maxs );
 
 		foreach ( $all_doses as $dose ) {
-			$mg = ( 'mcg' === $dose_unit ) ? $dose / 1000 : $dose;
+			$mg          = ( 'mcg' === $dose_unit ) ? $dose / 1000 : $dose;
 			$max_dose_mg = max( $max_dose_mg, $mg );
 		}
 
 		// Pick vials that hold at least 10 doses at the max dose level.
-		$viable = [];
+		$viable = array();
 		foreach ( $standard_sizes as $size ) {
 			if ( $max_dose_mg > 0 && ( $size / $max_dose_mg ) >= 5 ) {
 				$viable[] = $size;
@@ -200,7 +201,7 @@ class PRC_Preset_Provider {
 		}
 
 		// Fallback: return two middle sizes if heuristic found nothing.
-		return ! empty( $viable ) ? array_slice( $viable, 0, 3 ) : [ 5, 10 ];
+		return ! empty( $viable ) ? array_slice( $viable, 0, 3 ) : array( 5, 10 );
 	}
 
 	/**

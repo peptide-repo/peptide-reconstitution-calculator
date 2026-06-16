@@ -9,6 +9,7 @@
  * @see class-prc-preset-provider.php — Data source for presets.
  * @see class-prc-math.php           — Calculation engine.
  * @see class-prc-shortcode.php      — Frontend JS consumes these endpoints.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -38,39 +39,39 @@ class PRC_Rest_Controller {
 		register_rest_route(
 			self::NAMESPACE,
 			'/presets',
-			[
+			array(
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'get_presets' ],
+				'callback'            => array( $this, 'get_presets' ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 
 		register_rest_route(
 			self::NAMESPACE,
 			'/presets/(?P<slug>[a-z0-9-]+)',
-			[
+			array(
 				'methods'             => 'GET',
-				'callback'            => [ $this, 'get_preset' ],
+				'callback'            => array( $this, 'get_preset' ),
 				'permission_callback' => '__return_true',
-				'args'                => [
-					'slug' => [
+				'args'                => array(
+					'slug' => array(
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_title',
 						'required'          => true,
-					],
-				],
-			]
+					),
+				),
+			)
 		);
 
 		register_rest_route(
 			self::NAMESPACE,
 			'/calculate',
-			[
+			array(
 				'methods'             => 'POST',
-				'callback'            => [ $this, 'calculate' ],
+				'callback'            => array( $this, 'calculate' ),
 				'permission_callback' => '__return_true',
 				'args'                => $this->get_calculate_args(),
-			]
+			)
 		);
 	}
 
@@ -80,7 +81,7 @@ class PRC_Rest_Controller {
 	 * @param \WP_REST_Request $request Request object.
 	 * @return \WP_REST_Response
 	 */
-	public function get_presets( \WP_REST_Request $request ): \WP_REST_Response {
+	public function get_presets( \WP_REST_Request $request ): \WP_REST_Response { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$provider = new PRC_Preset_Provider();
 		$presets  = $provider->get_all_presets();
 
@@ -107,7 +108,7 @@ class PRC_Rest_Controller {
 		return new \WP_Error(
 			'prc_preset_not_found',
 			__( 'Preset not found.', 'peptide-reconstitution-calculator' ),
-			[ 'status' => 404 ]
+			array( 'status' => 404 )
 		);
 	}
 
@@ -137,31 +138,31 @@ class PRC_Rest_Controller {
 	 * @return array<string, array<string, mixed>>
 	 */
 	private function get_calculate_args(): array {
-		return [
-			'vial_mg'      => [
+		return array(
+			'vial_mg'      => array(
 				'type'              => 'number',
 				'required'          => true,
 				'sanitize_callback' => 'floatval',
 				'validate_callback' => fn( $v ) => is_numeric( $v ) && (float) $v > 0,
-			],
-			'water_ml'     => [
+			),
+			'water_ml'     => array(
 				'type'              => 'number',
 				'required'          => true,
 				'sanitize_callback' => 'floatval',
 				'validate_callback' => fn( $v ) => is_numeric( $v ) && (float) $v > 0,
-			],
-			'desired_dose' => [
+			),
+			'desired_dose' => array(
 				'type'              => 'number',
 				'required'          => true,
 				'sanitize_callback' => 'floatval',
 				'validate_callback' => fn( $v ) => is_numeric( $v ) && (float) $v > 0,
-			],
-			'dose_unit'    => [
+			),
+			'dose_unit'    => array(
 				'type'              => 'string',
 				'required'          => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'validate_callback' => fn( $v ) => in_array( $v, [ 'mcg', 'mg' ], true ),
-			],
-		];
+				'validate_callback' => fn( $v ) => in_array( $v, array( 'mcg', 'mg' ), true ),
+			),
+		);
 	}
 }

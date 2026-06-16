@@ -3,6 +3,32 @@
 All notable changes to Peptide Reconstitution Calculator are documented here.
 Format: [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] — 2026-06-16
+
+### Added
+- PHPUnit test suite (WP stubs, `tests: stubs`) — 40 tests across four classes:
+  - `MathTest`: 25 tests covering all PRC_Math methods — concentration mg/mL,
+    mcg/unit, injection volume, syringe units, doses per vial, and the full
+    `calculate()` orchestrator with named peptide scenarios (BPC-157, TB-500,
+    Semaglutide, MK-677, Ipamorelin) plus edge cases (zero water, zero dose,
+    negative inputs, floor rounding, rounding precision).
+  - `DefaultPresetsTest`: 11 tests — collection count, all 8 expected slugs present,
+    required keys on every preset (via dataProvider), valid dose units, min < max,
+    source='default', and spot-checks on BPC-157 / Semaglutide / MK-677.
+  - `RestControllerTest`: 7 tests — calculate() 200 response + correct values for
+    mcg and mg dose units; get_presets() returns 200; get_preset() 200 for known
+    slug and WP_Error for unknown slug.
+  - `PresetProviderTest`: 4 tests — fallback to defaults without PR Core, all
+    presets have slug, cache invalidation, idempotent invalidation.
+- `phpunit.xml.dist` + `tests/bootstrap.php` (WP function/class stubs).
+- `composer test` script (`vendor/bin/phpunit --configuration phpunit.xml.dist`).
+- `phpunit/phpunit ^9.6` and `yoast/phpunit-polyfills ^2.0` in `require-dev`.
+
+### Changed
+- `ci.yml` replaced with thin caller delegating to estate reusable workflow
+  (`peptide-e2e/.github/workflows/ci.yml@main`; `tests: stubs`, `has_js: true`,
+  `permissions: contents: write`, `workflow_call` so `deploy.yml` gate works).
+
 ## [1.1.0] — 2026-04-26
 
 ### Changed

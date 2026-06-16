@@ -9,6 +9,7 @@
  * @see class-prc-shortcode.php    — Frontend calculator widget.
  * @see class-prc-rest-controller.php — REST endpoints for presets.
  * @see class-prc-preset-provider.php — PR Core integration + fallback defaults.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -29,17 +30,17 @@ class PRC_Calculator {
 	public static function boot(): void {
 		// Frontend shortcode — always available.
 		$shortcode = new PRC_Shortcode();
-		add_action( 'init', [ $shortcode, 'register' ] );
+		add_action( 'init', array( $shortcode, 'register' ) );
 
 		// REST API — serves presets to the JS calculator.
-		add_action( 'rest_api_init', [ new PRC_Rest_Controller(), 'register_routes' ] );
+		add_action( 'rest_api_init', array( new PRC_Rest_Controller(), 'register_routes' ) );
 
 		// Cache invalidation — keep presets in sync with PR Core dosing data.
 		PRC_Cache_Listener::register();
 
 		// Admin notice when PR Core is absent.
 		if ( is_admin() && ! self::is_pr_core_active() ) {
-			add_action( 'admin_notices', [ __CLASS__, 'render_pr_core_notice' ] );
+			add_action( 'admin_notices', array( __CLASS__, 'render_pr_core_notice' ) );
 		}
 	}
 
@@ -70,7 +71,7 @@ class PRC_Calculator {
 		}
 
 		// Only show on plugins page and the calculator's own pages.
-		$show_on = [ 'plugins', 'settings_page_prc-settings' ];
+		$show_on = array( 'plugins', 'settings_page_prc-settings' );
 		if ( ! in_array( $screen->id, $show_on, true ) ) {
 			return;
 		}
