@@ -5,6 +5,7 @@
  * What: Runs on plugin activation — flushes rewrite rules.
  * Who calls it: register_activation_hook in bootstrap.
  * Dependencies: None.
+ *
  * @package PeptideReconstitutionCalculator
  */
 
