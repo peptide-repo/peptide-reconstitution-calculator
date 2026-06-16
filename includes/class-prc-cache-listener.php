@@ -9,6 +9,7 @@
  *
  * @see class-prc-preset-provider.php — Cache being invalidated.
  * @see PR_Core_Dosing_Repository     — Fires the hooks we listen to.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

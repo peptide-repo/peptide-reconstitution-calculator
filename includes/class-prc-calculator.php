@@ -9,6 +9,7 @@
  * @see class-prc-shortcode.php    — Frontend calculator widget.
  * @see class-prc-rest-controller.php — REST endpoints for presets.
  * @see class-prc-preset-provider.php — PR Core integration + fallback defaults.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

@@ -9,6 +9,7 @@
  * @see class-prc-preset-provider.php — Data source for presets.
  * @see class-prc-math.php           — Calculation engine.
  * @see class-prc-shortcode.php      — Frontend JS consumes these endpoints.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

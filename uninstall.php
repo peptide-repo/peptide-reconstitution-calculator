@@ -7,6 +7,7 @@
  * Dependencies: None (standalone, no autoloader).
  *
  * @see ARCHITECTURE.md — Teardown section.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

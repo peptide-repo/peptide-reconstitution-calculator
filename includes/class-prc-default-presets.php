@@ -8,6 +8,7 @@
  * Dependencies: None.
  *
  * @see class-prc-preset-provider.php — Merges these with live PR Core data.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

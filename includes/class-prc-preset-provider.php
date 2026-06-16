@@ -12,6 +12,7 @@
  * @see class-prc-default-presets.php            — Hardcoded fallback presets.
  * @see PR_Core_Peptide_Repository (PR Core)     — Peptide list source.
  * @see PR_Core_Dosing_Repository  (PR Core)     — Dosing data source.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
@@ -133,7 +134,7 @@ class PRC_Preset_Provider {
 		// Extract dose range across all rows.
 		$dose_mins = array_filter( array_map( fn( $r ) => $r->dose_min, $rows ) );
 		$dose_maxs = array_filter( array_map( fn( $r ) => $r->dose_max, $rows ) );
-		$dose_unit = $rows[0]->dose_unit ?: 'mcg';
+		$dose_unit = ! empty( $rows[0]->dose_unit ) ? $rows[0]->dose_unit : 'mcg';
 
 		// Derive typical vial sizes from dose range.
 		// Why: Most peptides are sold in standard vial sizes (2mg, 5mg, 10mg, 15mg, 30mg).
@@ -149,7 +150,7 @@ class PRC_Preset_Provider {
 
 		return array(
 			'slug'                 => $peptide->slug,
-			'name'                 => $display_name ?: $peptide->title,
+			'name'                 => ! empty( $display_name ) ? $display_name : $peptide->title,
 			'vial_sizes_mg'        => $vial_sizes,
 			'default_vial_mg'      => $vial_sizes[0] ?? 5,
 			'recommended_water_ml' => $this->recommend_water_ml( $vial_sizes[0] ?? 5 ),

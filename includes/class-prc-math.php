@@ -10,6 +10,7 @@
  *
  * @see assets/js/calculator.js — Client-side mirror of this math.
  * @see api/class-prc-rest-controller.php — Server-side consumer.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

@@ -15,6 +15,7 @@
  *
  * Depends on: Peptide Repo Core (optional — provides peptide-specific presets).
  * Without PR Core, the calculator still works with manual entry and built-in defaults.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

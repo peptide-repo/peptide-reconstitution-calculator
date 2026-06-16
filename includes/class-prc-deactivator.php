@@ -5,6 +5,7 @@
  * What: Runs on plugin deactivation — flushes rewrite rules.
  * Who calls it: register_deactivation_hook in bootstrap.
  * Dependencies: None.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

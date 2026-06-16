@@ -10,6 +10,7 @@
  * @see assets/js/calculator.js  — Client-side calculator logic.
  * @see assets/css/calculator.css — Calculator styles.
  * @see class-prc-calculator.php  — Boot orchestrator.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);

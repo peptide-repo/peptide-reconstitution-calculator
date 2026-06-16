@@ -7,6 +7,7 @@
  * Dependencies: None.
  *
  * @see class-pr-core-autoloader.php in Peptide Repo Core — same pattern.
+ * @package PeptideReconstitutionCalculator
  */
 
 declare(strict_types=1);
