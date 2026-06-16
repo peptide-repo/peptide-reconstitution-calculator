@@ -27,7 +27,7 @@ class PRC_Cache_Listener {
 	 * @return void Side effect: registers action hooks.
 	 */
 	public static function register(): void {
-		$callback = [ __CLASS__, 'invalidate' ];
+		$callback = array( __CLASS__, 'invalidate' );
 
 		// Dosing row lifecycle — affects calculator presets.
 		add_action( 'pr_core_after_dosing_row_publish', $callback );

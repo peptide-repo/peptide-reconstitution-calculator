@@ -27,11 +27,11 @@ class PRC_Default_Presets {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public static function get_all(): array {
-		return [
-			[
+		return array(
+			array(
 				'slug'                 => 'bpc-157',
 				'name'                 => 'BPC-157',
-				'vial_sizes_mg'        => [ 5, 10 ],
+				'vial_sizes_mg'        => array( 5, 10 ),
 				'default_vial_mg'      => 5,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 200,
@@ -41,11 +41,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'observational',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'tb-500',
 				'name'                 => 'TB-500',
-				'vial_sizes_mg'        => [ 2, 5, 10 ],
+				'vial_sizes_mg'        => array( 2, 5, 10 ),
 				'default_vial_mg'      => 5,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 2000,
@@ -55,11 +55,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'preclinical',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'semaglutide',
 				'name'                 => 'Semaglutide',
-				'vial_sizes_mg'        => [ 2, 5, 10 ],
+				'vial_sizes_mg'        => array( 2, 5, 10 ),
 				'default_vial_mg'      => 5,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 0.25,
@@ -69,11 +69,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'meta-analysis',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'cjc-1295-dac',
 				'name'                 => 'CJC-1295 (DAC)',
-				'vial_sizes_mg'        => [ 2, 5 ],
+				'vial_sizes_mg'        => array( 2, 5 ),
 				'default_vial_mg'      => 2,
 				'recommended_water_ml' => 1.0,
 				'dose_range_min'       => 1000,
@@ -83,11 +83,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'preclinical',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'ipamorelin',
 				'name'                 => 'Ipamorelin',
-				'vial_sizes_mg'        => [ 2, 5 ],
+				'vial_sizes_mg'        => array( 2, 5 ),
 				'default_vial_mg'      => 5,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 100,
@@ -97,11 +97,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'preclinical',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'pt-141',
 				'name'                 => 'PT-141 (Bremelanotide)',
-				'vial_sizes_mg'        => [ 2, 10 ],
+				'vial_sizes_mg'        => array( 2, 10 ),
 				'default_vial_mg'      => 10,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 500,
@@ -111,11 +111,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'rct-large',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'mk-677',
 				'name'                 => 'MK-677 (Ibutamoren)',
-				'vial_sizes_mg'        => [ 15, 30 ],
+				'vial_sizes_mg'        => array( 15, 30 ),
 				'default_vial_mg'      => 30,
 				'recommended_water_ml' => 3.0,
 				'dose_range_min'       => 10,
@@ -125,11 +125,11 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'rct-small',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-			[
+			),
+			array(
 				'slug'                 => 'ghrp-6',
 				'name'                 => 'GHRP-6',
-				'vial_sizes_mg'        => [ 5, 10 ],
+				'vial_sizes_mg'        => array( 5, 10 ),
 				'default_vial_mg'      => 5,
 				'recommended_water_ml' => 2.0,
 				'dose_range_min'       => 100,
@@ -139,7 +139,7 @@ class PRC_Default_Presets {
 				'evidence_strength'    => 'preclinical',
 				'dosing_row_count'     => 0,
 				'source'               => 'default',
-			],
-		];
+			),
+		);
 	}
 }

@@ -34,7 +34,7 @@ class PRC_Shortcode {
 	 * @return void Side effect: registers shortcode.
 	 */
 	public function register(): void {
-		add_shortcode( 'prc_calculator', [ $this, 'render' ] );
+		add_shortcode( 'prc_calculator', array( $this, 'render' ) );
 	}
 
 	/**
@@ -47,11 +47,11 @@ class PRC_Shortcode {
 	 * @param array<string, string>|string $atts Shortcode attributes.
 	 * @return string HTML output.
 	 */
-	public function render( $atts = [] ): string {
+	public function render( $atts = array() ): string {
 		$atts = shortcode_atts(
-			[
+			array(
 				'peptide' => '', // Pre-select a peptide by slug.
-			],
+			),
 			$atts,
 			'prc_calculator'
 		);
@@ -81,14 +81,14 @@ class PRC_Shortcode {
 		wp_enqueue_style(
 			'prc-calculator',
 			PRC_PLUGIN_URL . 'assets/css/calculator.css',
-			[],
+			array(),
 			PRC_VERSION
 		);
 
 		wp_enqueue_script(
 			'prc-calculator',
 			PRC_PLUGIN_URL . 'assets/js/calculator.js',
-			[],
+			array(),
 			PRC_VERSION,
 			true
 		);
@@ -96,23 +96,27 @@ class PRC_Shortcode {
 		// Pass presets and config to JS — all REST endpoints are public-read,
 		// so no nonce is needed. The restUrl is provided for future use.
 		$provider = new PRC_Preset_Provider();
-		wp_localize_script( 'prc-calculator', 'prcConfig', [
-			'presets'      => $provider->get_all_presets(),
-			'restUrl'      => esc_url_raw( rest_url( 'prc/v1' ) ),
-			'syringeUnits' => 100, // Must match PRC_Math::SYRINGE_UNITS_PER_ML and calculator.js SYRINGE_UNITS_PER_ML.
-			'i18n'         => [
-				'selectPeptide'  => __( 'Select a peptide…', 'peptide-reconstitution-calculator' ),
-				'customEntry'    => __( 'Custom / Manual Entry', 'peptide-reconstitution-calculator' ),
-				'calculate'      => __( 'Calculate', 'peptide-reconstitution-calculator' ),
-				'reset'          => __( 'Reset', 'peptide-reconstitution-calculator' ),
-				'concentration'  => __( 'Concentration', 'peptide-reconstitution-calculator' ),
-				'injectionVol'   => __( 'Injection Volume', 'peptide-reconstitution-calculator' ),
-				'syringeUnits'   => __( 'Syringe Units', 'peptide-reconstitution-calculator' ),
-				'dosesPerVial'   => __( 'Doses Per Vial', 'peptide-reconstitution-calculator' ),
-				'perUnit'        => __( 'per unit', 'peptide-reconstitution-calculator' ),
-				'disclaimer'     => __( 'For informational purposes only. Not medical advice. Always consult a qualified healthcare professional.', 'peptide-reconstitution-calculator' ),
-			],
-		] );
+		wp_localize_script(
+			'prc-calculator',
+			'prcConfig',
+			array(
+				'presets'      => $provider->get_all_presets(),
+				'restUrl'      => esc_url_raw( rest_url( 'prc/v1' ) ),
+				'syringeUnits' => 100, // Must match PRC_Math::SYRINGE_UNITS_PER_ML and calculator.js SYRINGE_UNITS_PER_ML.
+				'i18n'         => array(
+					'selectPeptide' => __( 'Select a peptide…', 'peptide-reconstitution-calculator' ),
+					'customEntry'   => __( 'Custom / Manual Entry', 'peptide-reconstitution-calculator' ),
+					'calculate'     => __( 'Calculate', 'peptide-reconstitution-calculator' ),
+					'reset'         => __( 'Reset', 'peptide-reconstitution-calculator' ),
+					'concentration' => __( 'Concentration', 'peptide-reconstitution-calculator' ),
+					'injectionVol'  => __( 'Injection Volume', 'peptide-reconstitution-calculator' ),
+					'syringeUnits'  => __( 'Syringe Units', 'peptide-reconstitution-calculator' ),
+					'dosesPerVial'  => __( 'Doses Per Vial', 'peptide-reconstitution-calculator' ),
+					'perUnit'       => __( 'per unit', 'peptide-reconstitution-calculator' ),
+					'disclaimer'    => __( 'For informational purposes only. Not medical advice. Always consult a qualified healthcare professional.', 'peptide-reconstitution-calculator' ),
+				),
+			)
+		);
 
 		$this->assets_enqueued = true;
 	}
@@ -155,7 +159,7 @@ class PRC_Shortcode {
 						<select id="prc-vial-select" class="prc-field__input prc-field__input--half"></select>
 						<div class="prc-field__custom-wrap">
 							<input type="number" id="prc-vial-mg" class="prc-field__input prc-field__input--half"
-								   step="0.1" min="0.1" placeholder="5" />
+									step="0.1" min="0.1" placeholder="5" />
 							<span class="prc-field__unit"><?php esc_html_e( 'mg', 'peptide-reconstitution-calculator' ); ?></span>
 						</div>
 					</div>
@@ -168,7 +172,7 @@ class PRC_Shortcode {
 					</label>
 					<div class="prc-field__row">
 						<input type="number" id="prc-water-ml" class="prc-field__input"
-							   step="0.1" min="0.1" placeholder="2.0" />
+								step="0.1" min="0.1" placeholder="2.0" />
 						<span class="prc-field__unit"><?php esc_html_e( 'mL', 'peptide-reconstitution-calculator' ); ?></span>
 					</div>
 				</div>
@@ -180,7 +184,7 @@ class PRC_Shortcode {
 					</label>
 					<div class="prc-field__row">
 						<input type="number" id="prc-desired-dose" class="prc-field__input"
-							   step="any" min="0" placeholder="250" />
+								step="any" min="0" placeholder="250" />
 						<select id="prc-dose-unit" class="prc-field__input prc-field__input--unit">
 							<option value="mcg">mcg</option>
 							<option value="mg">mg</option>

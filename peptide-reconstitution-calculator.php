@@ -37,9 +37,9 @@ PRC_Autoloader::register();
 
 /* ── Activation / Deactivation ────────────────────────────────────────── */
 
-register_activation_hook( __FILE__, [ 'PRC_Activator', 'activate' ] );
-register_deactivation_hook( __FILE__, [ 'PRC_Deactivator', 'deactivate' ] );
+register_activation_hook( __FILE__, array( 'PRC_Activator', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'PRC_Deactivator', 'deactivate' ) );
 
 /* ── Boot ─────────────────────────────────────────────────────────────── */
 
-add_action( 'plugins_loaded', [ 'PRC_Calculator', 'boot' ] );
+add_action( 'plugins_loaded', array( 'PRC_Calculator', 'boot' ) );
