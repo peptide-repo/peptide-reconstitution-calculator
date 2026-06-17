@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: deploy-peptide-reconstitution-calculator
@@ -15,6 +15,7 @@ jobs:
   ci:
     name: Pre-deploy CI
     uses: ./.github/workflows/ci.yml
+    secrets: inherit
 
   deploy:
     name: Deploy (shared pipeline)
